@@ -11,6 +11,8 @@ namespace S3C_MVC.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            ViewBag.Title = "ورود به سایت";
+
             return View();
         }
     }

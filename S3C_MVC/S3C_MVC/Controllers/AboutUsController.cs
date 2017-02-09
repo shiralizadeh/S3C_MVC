@@ -1,4 +1,5 @@
-﻿using System;
+﻿using S3C_MVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,14 @@ namespace S3C_MVC.Controllers
         // GET: AboutUs
         public ActionResult Index()
         {
-            return View();
+            ViewBag.Title = "درباره ما";
+
+            var pageSettings = new PageSettings();
+
+            pageSettings.Title = "دربارهههههه";
+            pageSettings.Text = $"اطلاعاتی درباره ما در ساعت <b>{DateTime.Now.ToShortTimeString()}</b>";
+
+            return View(model: pageSettings);
         }
     }
 }

@@ -767,7 +767,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\S3C_MVC.Models\S3C_MVC.Models.csproj">
+      <Project>{693b3384-7d9d-432b-a2ff-6004e799f10b}</Project>
+      <Name>S3C_MVC.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -11,6 +11,8 @@ namespace S3C_MVC.Controllers
         // GET: ContactUs
         public ActionResult Index()
         {
+            ViewBag.Title = "تماس با ما";
+
             return View();
         }
     }
