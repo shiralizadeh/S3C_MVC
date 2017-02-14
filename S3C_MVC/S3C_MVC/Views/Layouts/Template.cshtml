@@ -185,7 +185,10 @@
                     <div class="navbar-header"> <span class="visible-xs visible-sm"> منو <b></b></span></div>
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav">
-                            <li><a class="home_link" title="خانه" href="index.html"><span>خانه</span></a></li>
+                            <li>
+                                @*@Html.ActionLink( "خانه", actionName: "Index", controllerName: "Home", htmlAttributes: new { @class = "home_link" })*@
+                                <a class="home_link" title="خانه" href="index.html"><span>خانه</span></a>
+                            </li>
                             <li class="dropdown">
                                 <a>خرید بر اساس دسته بندی</a>
                                 <div class="dropdown-menu">
@@ -662,5 +665,8 @@
     <script type="text/javascript" src="/js/owl.carousel.min.js"></script>
     <script type="text/javascript" src="/js/custom.js"></script>
     <!-- JS Part End-->
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>

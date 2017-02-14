@@ -21,5 +21,11 @@ namespace S3C_MVC.Controllers
 
             return View(model: pageSettings);
         }
+
+        [NonAction]
+        public string GetTitle()
+        {
+            return "My Title";
+        }
     }
 }
