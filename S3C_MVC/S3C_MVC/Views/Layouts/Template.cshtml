@@ -529,7 +529,37 @@
             </nav>
             <!-- Main آقایانu End-->
         </div>
-        @RenderBody()
+        <div id="container">
+            <div class="container">
+                <!-- Breadcrumb Start-->
+                @if (IsSectionDefined("LeftColumn"))
+                {
+                    <ul class="breadcrumb">
+                        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="contact-us.html">تماس با ما</a></li>
+                    </ul>
+                }
+                <!-- Breadcrumb End-->
+                <div class="row">
+                    <!--Middle Part Start-->
+                    <div id="content" class="col-sm-9">
+                        @if (IsSectionDefined("LeftColumn"))
+                        {
+                            <h1 class="title">@ViewBag.Title</h1>
+                        }
+
+                        @RenderBody()
+                    </div>
+                    @if (IsSectionDefined("LeftColumn"))
+                    {
+                        <aside id="column-right" class="col-sm-3 hidden-xs">
+                            @RenderSection("LeftColumn", false)
+                        </aside>
+                    }
+                    <!--Middle Part End -->
+                </div>
+            </div>
+        </div>
         <!--Footer Start-->
         <footer id="footer">
             <div class="fpart-first">
@@ -657,6 +687,7 @@
         </div>
         <!-- Custom Side Block End -->
     </div>
+
     <!-- JS Part Start-->
     <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
@@ -668,5 +699,7 @@
 
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    @RenderSection("Scripts", false)
 </body>
 </html>

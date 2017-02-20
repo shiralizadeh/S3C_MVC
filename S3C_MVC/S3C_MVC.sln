@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3C_MVC", "S3C_MVC\S3C_MVC.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3C_MVC.Models", "S3C_MVC.Models\S3C_MVC.Models.csproj", "{693B3384-7D9D-432B-A2FF-6004E799F10B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3C_MVC.DataLayer", "S3C_MVC.DataLayer\S3C_MVC.DataLayer.csproj", "{4B6BBA33-E998-465A-853F-5FF296274FE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{693B3384-7D9D-432B-A2FF-6004E799F10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{693B3384-7D9D-432B-A2FF-6004E799F10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{693B3384-7D9D-432B-A2FF-6004E799F10B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B6BBA33-E998-465A-853F-5FF296274FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B6BBA33-E998-465A-853F-5FF296274FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B6BBA33-E998-465A-853F-5FF296274FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B6BBA33-E998-465A-853F-5FF296274FE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

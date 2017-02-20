@@ -43,6 +43,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -727,6 +735,15 @@
     <Content Include="revolution\php\twitter\RestApi.php" />
     <Content Include="revolution\php\vimeo\class-vimeo.php" />
     <Content Include="revolution\php\youtube\class-youtube.php" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Products1\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Products1\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Products1\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Products1\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Products1\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -740,6 +757,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\Products1Controller.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -772,8 +792,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\S3C_MVC.DataLayer\S3C_MVC.DataLayer.csproj">
+      <Project>{4b6bba33-e998-465a-853f-5ff296274fe3}</Project>
+      <Name>S3C_MVC.DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\S3C_MVC.Models\S3C_MVC.Models.csproj">
       <Project>{693b3384-7d9d-432b-a2ff-6004e799f10b}</Project>
       <Name>S3C_MVC.Models</Name>
