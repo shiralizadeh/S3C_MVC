@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactUsModel.cs" />
-    <Compile Include="PageSettings.cs" />
+    <Compile Include="Admin\AddProductSettings.cs" />
+    <Compile Include="Admin\SimpleGroup.cs" />
+    <Compile Include="Public\ContactUsModel.cs" />
+    <Compile Include="Public\PageSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

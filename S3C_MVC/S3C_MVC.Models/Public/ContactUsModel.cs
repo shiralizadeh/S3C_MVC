@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S3C_MVC.Models
+namespace S3C_MVC.Models.Public
 {
     public class ContactUsModel
     {

@@ -6,13 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace S3C_MVC.DataLayer
+namespace S3C_MVC.Models.Admin
 {
-    public class Product : EntityBase
+    public class AddProductSettings
     {
         public int GroupID { get; set; }
-        [ForeignKey("GroupID")]
-        public Group Group { get; set; }
 
         [Display(Name = "عنوان")]
         [Required]
@@ -30,7 +28,6 @@ namespace S3C_MVC.DataLayer
         [Required]
         public int Count { get; set; }
 
-        [NotMapped]
-        public List<Group> Groups { get; set; }
+        public List<SimpleGroup> Groups { get; set; }
     }
 }

@@ -739,11 +739,7 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Add.cshtml" />
-    <Content Include="Areas\Admin\Views\Products1\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Products1\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Products1\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Products1\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Products1\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -758,7 +754,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\Products1Controller.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
@@ -783,6 +778,8 @@
     <Content Include="Views\Layouts\Template.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Add.cshtml" />
+    <Content Include="Views\Shared\_SpecialContent.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

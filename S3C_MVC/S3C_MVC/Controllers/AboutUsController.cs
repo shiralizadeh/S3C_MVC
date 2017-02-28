@@ -1,4 +1,5 @@
 ﻿using S3C_MVC.Models;
+using S3C_MVC.Models.Public;
 using System;
 using System.Collections.Generic;
 using System.Linq;
