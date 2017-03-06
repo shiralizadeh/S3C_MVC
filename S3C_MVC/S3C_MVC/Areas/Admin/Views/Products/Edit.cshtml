@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model ProductDTO
 
 @{
     ViewBag.Title = "محصول جدید";
@@ -15,12 +15,13 @@
                        Text = item.Title,
                        Value = item.ID.ToString()
                    }).ToList();
+
+    int index = 0;
 }
 
-
-@using (Html.BeginForm("Add", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @*@Html.AntiForgeryToken()*@
+    @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>Product</h4>
@@ -43,12 +44,17 @@
             </div>
         </div>
 
-        <div class="fileupload form-group">
-            <label class="control-label col-md-2">عکس</label>
-            <div class="col-md-10">
-                <input type="file" name="Image_0" value="" />
+        @foreach (var item in Model.Images)
+        {
+            <div class="fileupload form-group">
+                <label class="control-label col-md-2">عکس</label>
+                <div class="col-md-10">
+                    <img src="/Uploads/@item.Image" width="100" />@item.Image
+                    <input type="file" name="Image_@item.ID" value="" />
+                </div>
             </div>
-        </div>
+        }
+
         <div class="row">
             <div class="col-xs-12">
                 <button type="button" class="btn btn-success btn-xs btnAddFileUpload">فایل جدید</button>
@@ -93,9 +99,10 @@
         $('.btnAddFileUpload').click(function () {
             var file = $('.fileupload:first').clone();
 
-            file.find('input').attr('name', 'Image_' + ++index);
+            file.find('input').attr('name', 'Image_' + --index);
+            file.find('img').attr('src', '');
 
-            $('.fileupload:first').after(file);
+            $('.fileupload:last').after(file);
         });
 
     </script>

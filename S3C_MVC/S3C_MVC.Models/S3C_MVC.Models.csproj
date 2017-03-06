@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AddProductSettings.cs" />
+    <Compile Include="Admin\ProductDTO.cs" />
     <Compile Include="Admin\SimpleGroup.cs" />
+    <Compile Include="Admin\SimpleImage.cs" />
     <Compile Include="Public\ContactUsModel.cs" />
     <Compile Include="Public\PageSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

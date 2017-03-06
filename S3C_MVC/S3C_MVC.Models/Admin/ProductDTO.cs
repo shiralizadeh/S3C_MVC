@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace S3C_MVC.Models.Admin
 {
-    public class AddProductSettings
+    public class ProductDTO
     {
         public int GroupID { get; set; }
 
         [Display(Name = "عنوان")]
         [Required]
-        [StringLength(50)]
         public string Title { get; set; }
 
         [Display(Name = "توضیحات")]
@@ -29,5 +28,6 @@ namespace S3C_MVC.Models.Admin
         public int Count { get; set; }
 
         public List<SimpleGroup> Groups { get; set; }
+        public List<SimpleImage> Images { get; set; }
     }
 }
