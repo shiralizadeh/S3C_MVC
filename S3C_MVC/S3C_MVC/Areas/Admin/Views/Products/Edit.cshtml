@@ -49,7 +49,10 @@
             <div class="fileupload form-group">
                 <label class="control-label col-md-2">عکس</label>
                 <div class="col-md-10">
-                    <img src="/Uploads/@item.Image" width="100" />@item.Image
+                    @if (!String.IsNullOrWhiteSpace(item.Image))
+                    {
+                        <img src="/Uploads/@item.Image" width="100" />@item.Image
+                    }
                     <input type="file" name="Image_@item.ID" value="" />
                 </div>
             </div>

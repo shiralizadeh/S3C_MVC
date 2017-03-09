@@ -27,6 +27,9 @@ namespace S3C_MVC
 
                 config.CreateMap<ProductImage, SimpleImage>();
                 config.CreateMap<SimpleImage, ProductImage>();
+
+                config.CreateMap<Models.Public.ProductDTO, Product>();
+                config.CreateMap<Product, Models.Public.ProductDTO>();
             });
         }
     }

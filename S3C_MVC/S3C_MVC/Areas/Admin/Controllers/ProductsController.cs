@@ -25,11 +25,15 @@ namespace S3C_MVC.Areas.Admin.Controllers
                     productDTO = Mapper.Map<ProductDTO>(product);
 
                     productDTO.Images = Mapper.Map<List<SimpleImage>>(db.ProductImages.Where(a => a.ProductID == id).ToList());
+
+                    if (productDTO.Images.Count == 0)
+                        productDTO.Images.Add(new SimpleImage());
                     //productDTO.Images = product.Images;
                 }
                 else
                 {
                     productDTO = new ProductDTO();
+                    productDTO.Images = new List<SimpleImage>() { new SimpleImage() };
                 }
 
                 productDTO.Groups = Mapper.Map<List<SimpleGroup>>(db.Groups.ToList());
@@ -48,18 +52,21 @@ namespace S3C_MVC.Areas.Admin.Controllers
                 {
                     var rnd = new Random();
 
+                    Product pro = null;
                     if (id.HasValue)
                     {
-                        var p = db.Products.Single(item => item.ID == id);
+                        pro = db.Products.Single(item => item.ID == id);
 
-                        p.Title = productDTO.Title;
-                        p.Count = productDTO.Count;
+                        pro.Title = productDTO.Title;
+                        pro.Count = productDTO.Count;
                     }
                     else
                     {
-                        db.Products.Add(Mapper.Map<Product>(productDTO));
+                        pro = Mapper.Map<Product>(productDTO);
+
+                        db.Products.Add(pro);
                     }
-                    
+
                     db.SaveChanges();
 
                     foreach (string fileuploadname in Request.Files)
@@ -89,14 +96,14 @@ namespace S3C_MVC.Areas.Admin.Controllers
                         {
                             var productImage = new ProductImage();
 
-                            productImage.ProductID = id.Value;
+                            productImage.ProductID = pro.ID;
                             productImage.Image = filename;
 
                             db.ProductImages.Add(productImage);
 
                             db.SaveChanges();
                         }
-                        
+
                     }
                 }
 
@@ -114,6 +121,33 @@ namespace S3C_MVC.Areas.Admin.Controllers
                 List<Product> model = db.Products.ToList();
 
                 return View(model);
+            }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            using (var db = new EntityContext())
+            {
+                try
+                {
+                    var product = db.Products.Where(item => item.ID == id).Single();
+                    var productImages = db.ProductImages.Where(item => item.ProductID == id).ToList();
+
+                    foreach (var item in productImages)
+                    {
+                        System.IO.File.Delete(Server.MapPath("/Uploads/" + item.Image));
+                    }
+
+                    db.Products.Remove(product);
+
+                    db.SaveChanges();
+
+                    return Redirect("/Admin/Products?success=true");
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
         }
     }

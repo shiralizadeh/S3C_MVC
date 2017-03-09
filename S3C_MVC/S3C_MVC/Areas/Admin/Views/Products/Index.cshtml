@@ -7,6 +7,12 @@
 }
 
 <h2>Index</h2>
+
+@if (Request.QueryString["success"] == "true")
+{
+    <span class="alert alert-success">موفقیت در حذف</span>
+}
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -27,6 +33,7 @@
                 <td>@item.RegisterDate.ToString()</td>
                 <td>
                     <a href="/Admin/Products/Edit/@item.ID" class="btn btn-sm btn-warning">ویرایش</a>
+                    <a href="/Admin/Products/Delete/@item.ID" class="btn btn-sm btn-danger">حذف</a>
                 </td>
             </tr>
         }
