@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using S3C_MVC.DataLayer;
 using S3C_MVC.Models.Admin;
+using S3C_MVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,116 +10,110 @@ using System.Web.Mvc;
 
 namespace S3C_MVC.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
+        private ProductsServices productsServices = new ProductsServices();
+        private ProductImagesServices productImagesServices = new ProductImagesServices();
+        private GroupsServices groupsServices = new GroupsServices();
+
         // GET: Admin/Products
         public ActionResult Edit(int? id)
         {
-            using (var db = new EntityContext())
+            ProductDTO productDTO = null;
+
+            if (id.HasValue)
             {
-                ProductDTO productDTO = null;
+                var product = productsServices.GetByID(id.Value);
 
-                if (id.HasValue)
-                {
-                    var product = db.Products.Single(item => item.ID == id);
+                productDTO = Mapper.Map<ProductDTO>(product);
 
-                    productDTO = Mapper.Map<ProductDTO>(product);
+                productDTO.Images = Mapper.Map<List<SimpleImage>>(productImagesServices.GetByProductID(id.Value));
 
-                    productDTO.Images = Mapper.Map<List<SimpleImage>>(db.ProductImages.Where(a => a.ProductID == id).ToList());
-
-                    if (productDTO.Images.Count == 0)
-                        productDTO.Images.Add(new SimpleImage());
-                    //productDTO.Images = product.Images;
-                }
-                else
-                {
-                    productDTO = new ProductDTO();
-                    productDTO.Images = new List<SimpleImage>() { new SimpleImage() };
-                }
-
-                productDTO.Groups = Mapper.Map<List<SimpleGroup>>(db.Groups.ToList());
-
-                return View(productDTO);
+                if (productDTO.Images.Count == 0)
+                    productDTO.Images.Add(new SimpleImage());
+                //productDTO.Images = product.Images;
             }
+            else
+            {
+                productDTO = new ProductDTO();
+                productDTO.Images = new List<SimpleImage>() { new SimpleImage() };
+            }
+
+            productDTO.Groups = groupsServices.GetForDropdown();
+
+            return View(productDTO);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, ProductDTO productDTO)
         {
-            using (var db = new EntityContext())
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var rnd = new Random();
+
+                if (id.HasValue)
                 {
-                    var rnd = new Random();
+                    productsServices.Update(id.Value, productDTO);
+                }
+                else
+                {
+                    var pro = Mapper.Map<Product>(productDTO);
 
-                    Product pro = null;
-                    if (id.HasValue)
+                    productsServices.Insert(pro);
+
+                    id = pro.ID;
+                }
+
+                foreach (string fileuploadname in Request.Files)
+                {
+                    var image = Request.Files[fileuploadname];
+
+                    var imageId = int.Parse(fileuploadname.Replace("Image_", ""));
+
+                    if (image.ContentLength == 0)
+                        continue;
+
+                    var path = Server.MapPath("~/Uploads/");
+                    var filename = rnd.Next(1000, 9999) + ".jpg";
+                    image.SaveAs(path + filename);
+
+                    if (imageId > 0)
                     {
-                        pro = db.Products.Single(item => item.ID == id);
+                        var productImage = productImagesServices.GetByID(imageId);
+                        System.IO.File.Delete(path + productImage.Image);
 
-                        pro.Title = productDTO.Title;
-                        pro.Count = productDTO.Count;
+                        productImagesServices.UpdateImage(imageId, filename);
                     }
                     else
                     {
-                        pro = Mapper.Map<Product>(productDTO);
+                        var productImage = new ProductImage();
 
-                        db.Products.Add(pro);
-                    }
+                        productImage.ProductID = id.Value;
+                        productImage.Image = filename;
 
-                    db.SaveChanges();
-
-                    foreach (string fileuploadname in Request.Files)
-                    {
-                        var image = Request.Files[fileuploadname];
-
-                        var imageId = int.Parse(fileuploadname.Replace("Image_", ""));
-
-                        if (image.ContentLength == 0)
-                            continue;
-
-                        var path = Server.MapPath("~/Uploads/");
-                        var filename = rnd.Next(1000, 9999) + ".jpg";
-                        image.SaveAs(path + filename);
-
-                        if (imageId > 0)
-                        {
-                            var productImage = db.ProductImages.Where(a => a.ID == imageId).Single();
-
-                            System.IO.File.Delete(path + productImage.Image);
-
-                            productImage.Image = filename;
-
-                            db.SaveChanges();
-                        }
-                        else
-                        {
-                            var productImage = new ProductImage();
-
-                            productImage.ProductID = pro.ID;
-                            productImage.Image = filename;
-
-                            db.ProductImages.Add(productImage);
-
-                            db.SaveChanges();
-                        }
-
+                        productImagesServices.Insert(productImage);
                     }
                 }
-
-                productDTO.Groups = Mapper.Map<List<SimpleGroup>>(db.Groups.ToList());
-                productDTO.Images = Mapper.Map<List<SimpleImage>>(db.ProductImages.Where(a => a.ProductID == id.Value).ToList());
-
-                return View(productDTO);
             }
+
+            productDTO.Groups = groupsServices.GetForDropdown();
+            productDTO.Images = productImagesServices.GetSimpleGroup(id.Value);
+
+            return View(productDTO);
         }
 
-        public ActionResult Index()
+        //[Route("Admin/Products/{pageIndex}")]
+        public ActionResult Index(int pageIndex = 0, int pageSize = 10)
         {
+            ViewBag.PageIndex = pageIndex;
+            ViewBag.PageSize = pageSize;
+
             using (var db = new EntityContext())
             {
-                List<Product> model = db.Products.ToList();
+                List<Product> model = db.Products.OrderBy(item => item.ID).Skip(pageIndex * pageSize).Take(pageSize).ToList();
+                ViewBag.PageCount = db.Products.Count();
 
                 return View(model);
             }

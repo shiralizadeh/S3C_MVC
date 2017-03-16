@@ -46,6 +46,7 @@
     <Compile Include="Admin\SimpleImage.cs" />
     <Compile Include="Public\ContactUsModel.cs" />
     <Compile Include="Public\HomeDTO.cs" />
+    <Compile Include="Public\LoginStatus.cs" />
     <Compile Include="Public\PageSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Public\ProductDTO.cs" />

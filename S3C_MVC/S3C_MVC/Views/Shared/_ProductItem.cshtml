@@ -1,9 +1,13 @@
 ﻿@model ProductDTO
 
+@{ 
+    var url = $"/محصول/S3C-{Model.ID}/{Model.Title.ToUrl()}";
+}
+
 <div class="product-thumb clearfix">
-    <div class="image"><a href="product.html"><img src="/Uploads/@Model.Image" alt="آیفون 7" title="آیفون 7" class="img-responsive" /></a></div>
+    <div class="image"><a href="@url"><img src="/Uploads/@Model.Image" alt="آیفون 7" title="آیفون 7" class="img-responsive" /></a></div>
     <div class="caption">
-        <h4><a href="product.html">@Model.Title</a></h4>
+        <h4><a href="@url">@Model.Title</a></h4>
         @if (Model.Count > 0)
         {
             <p class="price"> @Model.Price تومان </p>

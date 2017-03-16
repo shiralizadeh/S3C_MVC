@@ -1,4 +1,6 @@
-﻿<div id="container">
+﻿@model ProductDTO
+
+<div id="container">
     <div class="container">
         <!-- Breadcrumb Start-->
         <ul class="breadcrumb">
@@ -109,7 +111,7 @@
             <!--Middle Part Start-->
             <div id="content" class="col-sm-9">
                 <div itemscope itemtype="http://schema.org/محصولات">
-                    <h1 class="title" itemprop="name">لپ تاپ ایلین ور</h1>
+                    <h1 class="title" itemprop="name">@Model.Title</h1>
                     <div class="row product-info">
                         <div class="col-sm-6">
                             <div class="image"><img class="img-responsive" itemprop="image" id="zoom_01" src="image/product/macbook_air_1-350x350.jpg" title="لپ تاپ ایلین ور" alt="لپ تاپ ایلین ور" data-zoom-image="image/product/macbook_air_1-500x500.jpg" /> </div>
@@ -124,7 +126,9 @@
                                 <li><b>وضعیت موجودی :</b> <span class="instock">موجود</span></li>
                             </ul>
                             <ul class="price-box">
-                                <li class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><span class="price-old">12 میلیون تومان</span> <span itemprop="price">10 میلیون تومان<span itemprop="availability" content="موجود"></span></span></li>
+                                <li class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <span class="price-old">12 میلیون تومان</span>
+                                <span itemprop="price">@Model.Price میلیون تومان<span itemprop="availability" content="موجود"></span></span></li>
                                 <li></li>
                                 <li>بدون مالیات : 9 میلیون تومان</li>
                             </ul>

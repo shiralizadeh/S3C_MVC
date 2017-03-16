@@ -11,6 +11,7 @@ namespace S3C_MVC.Controllers
     public class AboutUsController : Controller
     {
         // GET: AboutUs
+        [Route("درباره-ما")]
         public ActionResult Index()
         {
             ViewBag.Title = "درباره ما";

@@ -25,13 +25,22 @@
                     </div>
                 </div>
                 <!-- پرفروش ها محصولات Start-->
-                <h3 class="subtitle">پرفروش ها</h3>
-                <div class="owl-carousel product_carousel">
-                    @foreach (var item in Model.Products)
-                    {
-                        @Html.Partial("_ProductItem", item);
-                    }
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h3 class="subtitle">پرفروش ها</h3>
+                    <div class="owl-carousel product_carousel">
+                        @foreach (var item in Model.Products)
+                        {
+                            @Html.Partial("_ProductItem", item);
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        لطفا وارد سایت شوید.
+                    </div>
+                }
                 <!-- Featured محصولات End-->
                 <!-- Banner Start-->
                 <div class="marketshop-banner">

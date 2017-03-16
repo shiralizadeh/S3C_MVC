@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using S3C_MVC.DataLayer;
 using S3C_MVC.Models.Public;
+using S3C_MVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +12,33 @@ namespace S3C_MVC.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController(IProductsServices productsServices)
+        {
+            this.productsServices = productsServices;
+        }
+
+        private IProductsServices productsServices;
+        private ProductImagesServices productImagesServices = new ProductImagesServices();
+
         // GET: Home
         public ActionResult Index()
         {
-            var db = new EntityContext();
+            productsServices.SearchByTitle("فون");
 
-            var list = db.Products.ToList();
+            var list = productsServices.GetDTO();
 
             var homeDTO = new HomeDTO();
 
-            homeDTO.Products = Mapper.Map<List<ProductDTO>>(list);
+            homeDTO.Products = list;
 
             foreach (var item in homeDTO.Products)
             {
-                item.Image = db.ProductImages.Where(img => img.ProductID == item.ID).FirstOrDefault()?.Image ?? @"default.jpg";
+                item.Image = productImagesServices.GetFirstImage(item.ID);
 
                 if (!System.IO.File.Exists(Server.MapPath("/Uploads/" + item.Image)))
                 {
                     item.Image = @"default.jpg";
                 }
-
             }
 
             ViewBag.Title = "فروشگاه اینترنتی ما";

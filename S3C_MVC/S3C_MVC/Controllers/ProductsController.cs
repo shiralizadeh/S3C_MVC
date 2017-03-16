@@ -1,4 +1,6 @@
-﻿using System;
+﻿using S3C_MVC.Models.Public;
+using S3C_MVC.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,14 @@ namespace S3C_MVC.Controllers
 {
     public class ProductsController : Controller
     {
-        // GET: Products
+        ProductsServices productsServices = new ProductsServices();
+
+        [Route("محصول/S3C-{id:int}/{title}")]
         public ActionResult Details(int id)
         {
-            return View();
+            var productDTO = productsServices.GetDTOByID(id);
+
+            return View(productDTO);
         }
     }
 }

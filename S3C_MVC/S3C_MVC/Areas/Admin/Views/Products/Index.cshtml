@@ -3,7 +3,11 @@
 @{
     ViewBag.Title = "لیست محصولات";
 
-    int index = 1;
+    int pageIndex = ViewBag.PageIndex;
+    int pageSize = ViewBag.PageSize;
+    decimal pageCount = ViewBag.PageCount;
+
+    int index = (pageIndex * pageSize) + 1;
 }
 
 <h2>Index</h2>
@@ -39,3 +43,13 @@
         }
     </tbody>
 </table>
+
+<ul>
+    @for (int i = 0; i < Math.Ceiling(pageCount / pageSize); i++)
+    {
+        <li>
+            <a href="/Admin/Products?pageIndex=@i" class="btn btn-xs btn-default">@(i + 1)</a>
+        </li>
+    }
+   
+</ul>

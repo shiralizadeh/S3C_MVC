@@ -18,6 +18,5 @@ namespace S3C_MVC.DataLayer
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<User> Users { get; set; }
     }
 }
