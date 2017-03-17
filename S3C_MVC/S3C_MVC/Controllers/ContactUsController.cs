@@ -1,5 +1,7 @@
-﻿using S3C_MVC.Models;
+﻿using S3C_MVC.DataLayer;
+using S3C_MVC.Models;
 using S3C_MVC.Models.Public;
+using S3C_MVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,8 @@ namespace S3C_MVC.Controllers
 {
     public class ContactUsController : Controller
     {
+        public ContactUsMessagesServices contactUsMessagesServices => new ContactUsMessagesServices();
+
         // GET: ContactUs
         [HttpGet]
         public ViewResult Index()
@@ -37,6 +41,21 @@ namespace S3C_MVC.Controllers
             System.Threading.Thread.Sleep(5000);
 
             return View();
+        }
+
+        public bool SendMessage(ContactUsMessage contactUsMessage)
+        {
+            try
+            {
+                contactUsMessagesServices.Insert(contactUsMessage);
+                System.Threading.Thread.Sleep(5000);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

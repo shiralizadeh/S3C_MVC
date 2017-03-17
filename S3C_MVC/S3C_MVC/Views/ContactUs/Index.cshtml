@@ -1,4 +1,4 @@
-﻿@model S3C_MVC.Models.ContactUsModel
+﻿@model S3C_MVC.DataLayer.ContactUsMessage
 
 <h3 class="subtitle">محل ما</h3>
 <div class="row">
@@ -28,46 +28,55 @@
     </div>
 </div>
 
-@using (Html.BeginForm("Index", "ContactUs", FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    if (ViewBag.IsSuccess == true)
+<div style="position: relative;">
+    @using (Html.BeginForm("Index", "ContactUs", FormMethod.Post, new { @class = "form-horizontal" }))
     {
-        <div class="alert alert-success">ثبت با موفقیت انجام شد.</div>
+        <div class="loading">
+            <img src="~/image/progress.gif" />
+        </div>
+
+        if (ViewBag.IsSuccess == true)
+        {
+            <div class="alert alert-success">ثبت با موفقیت انجام شد.</div>
+        }
+
+        <fieldset>
+            @Html.ValidationSummary(false);
+            <h3 class="subtitle">با ما ارتباط برقرار کنید</h3>
+            <div class="form-group required">
+                @Html.LabelFor(a => a.Firstname, new { @class = "col-md-2 col-sm-3 control-label" })
+                <div class="col-md-10 col-sm-9">
+                    @Html.TextBoxFor(a => a.Firstname, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(a => a.Firstname)
+                </div>
+            </div>
+            <div class="form-group required">
+                <label class="col-md-2 col-sm-3 control-label" for="input-email">آدرس ایمیل</label>
+                <div class="col-md-10 col-sm-9">
+                    @Html.TextBoxFor(a => a.Email, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(a => a.Email)
+                </div>
+            </div>
+            <div class="form-group required">
+                <label class="col-md-2 col-sm-3 control-label" for="input-enquiry">پرسش</label>
+                <div class="col-md-10 col-sm-9">
+                    @Html.TextAreaFor(a => a.Message, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(a => a.Message)
+                </div>
+            </div>
+        </fieldset>
+        <div class="buttons">
+            <div class="pull-right">
+                <input class="btn btn-primary btn-contactus" type="submit" value="ارسال" />
+            </div>
+        </div>
     }
-
-    <fieldset>
-        @Html.ValidationSummary(false);
-        <h3 class="subtitle">با ما ارتباط برقرار کنید</h3>
-        <div class="form-group required">
-            @Html.LabelFor(a => a.Firstname, new { @class = "col-md-2 col-sm-3 control-label" })
-            <div class="col-md-10 col-sm-9">
-                @Html.TextBoxFor(a => a.Firstname, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(a => a.Firstname)
-            </div>
-        </div>
-        <div class="form-group required">
-            <label class="col-md-2 col-sm-3 control-label" for="input-email">آدرس ایمیل</label>
-            <div class="col-md-10 col-sm-9">
-                @Html.TextBoxFor(a => a.Email, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(a => a.Email)
-            </div>
-        </div>
-        <div class="form-group required">
-            <label class="col-md-2 col-sm-3 control-label" for="input-enquiry">پرسش</label>
-            <div class="col-md-10 col-sm-9">
-                @Html.TextAreaFor(a => a.Message, new { @class = "form-control" })
-                @Html.ValidationMessageFor(a => a.Message)
-            </div>
-        </div>
-    </fieldset>
-    <div class="buttons">
-        <div class="pull-right">
-            <input class="btn btn-primary" type="submit" value="ارسال" />
-        </div>
-    </div>
-}
-
+</div>
 
 @section LeftColumn {
     @Html.Partial("_SpecialContent", model: "me me")
+}
+
+@section Scripts {
+    <script src="~/js/contactus.js"></script>
 }

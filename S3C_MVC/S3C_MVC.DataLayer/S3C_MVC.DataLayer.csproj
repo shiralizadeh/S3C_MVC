@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cart.cs" />
+    <Compile Include="CartItem.cs" />
+    <Compile Include="ContactUsMessage.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="EntityContext.cs" />
     <Compile Include="Group.cs" />

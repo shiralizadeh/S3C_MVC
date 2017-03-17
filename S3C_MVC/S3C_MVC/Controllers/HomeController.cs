@@ -12,12 +12,13 @@ namespace S3C_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController(IProductsServices productsServices)
-        {
-            this.productsServices = productsServices;
-        }
+        //public HomeController(IProductsServices productsServices)
+        //{
+        //    this.productsServices = productsServices;
+        //}
 
-        private IProductsServices productsServices;
+        //private IProductsServices productsServices;
+        private ProductsServices productsServices = new ProductsServices();
         private ProductImagesServices productImagesServices = new ProductImagesServices();
 
         // GET: Home
@@ -44,6 +45,13 @@ namespace S3C_MVC.Controllers
             ViewBag.Title = "فروشگاه اینترنتی ما";
 
             return View(homeDTO);
+        }
+
+        public ActionResult TestJavascript()
+        {
+            System.Threading.Thread.Sleep(10000);
+
+            return Content("dfdsfdsfsdf");
         }
     }
 }

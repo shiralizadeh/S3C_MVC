@@ -1,0 +1,83 @@
+﻿@{
+    var cartsServices = new S3C_MVC.Services.CartsServices();
+    var cartItemsServices = new S3C_MVC.Services.CartItemsServices();
+    var productsServices = new S3C_MVC.Services.ProductsServices();
+    var productImagesServices = new S3C_MVC.Services.ProductImagesServices();
+
+    var cartGuid = Request.Cookies["CartGuid"].Value;
+
+    var cartItems = cartItemsServices.GetItemsByCartGuid(Guid.Parse(cartGuid));
+
+    int totalPrice = 0;
+
+    foreach (var item in cartItems)
+    {
+        var product = productsServices.GetByID(item.ProductID);
+        item.Product = product;
+
+        totalPrice += product.Price * item.Count;
+    }
+
+    var tax = totalPrice * 0.09;
+    var topay = totalPrice + tax;
+}
+<div id="cart">
+    <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..." class="heading dropdown-toggle">
+        <span class="cart-icon pull-left flip"></span> <span id="cart-total">
+        <span class="cart-count">@cartItems.Count</span> آیتم - <span class="topay-price">@totalPrice تومان</span>
+        </span>
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <table class="table cart-list">
+                <tbody>
+                    @foreach (var item in cartItems)
+                    {
+                        var productImage = productImagesServices.GetByProductID(item.ProductID).First();
+
+                        <tr class="product-item" data-price="@item.Product.Price" data-count="@item.Count">
+                            <td class="text-center">
+                                <a href="product.html">
+                                    <img class="img-thumbnail" width="60" title="کفش راحتی مردانه" alt="کفش راحتی مردانه" src="/uploads/@productImage.Image">
+                                </a>
+                            </td>
+                            <td class="text-left">
+                                <a href="product.html">
+                                    @item.Product.Title
+                                </a>
+                            </td>
+                            <td class="text-right">x @item.Count</td>
+                            <td class="text-right">@((item.Product.Price * item.Count).ToString("#,#")) تومان</td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-xs remove btn-remove-cart" data-productid="@item.ProductID" title="حذف" onClick="" type="button"><i class="fa fa-times"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </li>
+        <li>
+            <div>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="text-right"><strong>جمع کل</strong></td>
+                            <td class="text-right total-price">@totalPrice.ToString("#,#") تومان</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><strong>مالیات</strong></td>
+                            <td class="text-right tax-price">@tax.ToString("#,#") تومان</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><strong>قابل پرداخت</strong></td>
+                            <td class="text-right topay-price">@topay.ToString("#,#") تومان</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="checkout">
+                    <a href="cart.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a href="checkout.html" class="btn btn-primary"><i class="fa fa-share"></i> تسویه حساب</a>
+                </p>
+            </div>
+        </li>
+    </ul>
+</div>

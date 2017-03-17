@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartItemsServices.cs" />
+    <Compile Include="CartsServices.cs" />
+    <Compile Include="ContactUsMessagesServices.cs" />
     <Compile Include="GroupsServices.cs" />
     <Compile Include="ProductImagesServices.cs" />
     <Compile Include="ProductsServices.cs" />
