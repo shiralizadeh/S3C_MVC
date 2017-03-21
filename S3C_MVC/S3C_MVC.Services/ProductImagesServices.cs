@@ -8,7 +8,17 @@ using S3C_MVC.Models.Admin;
 
 namespace S3C_MVC.Services
 {
-    public class ProductImagesServices
+    public interface IProductImagesServices
+    {
+        List<ProductImage> GetByProductID(int productID);
+        string GetFirstImage(int id);
+        ProductImage GetByID(int id);
+        void UpdateImage(int id, string filename);
+        void Insert(ProductImage productImage);
+        List<SimpleImage> GetSimpleGroup(int id);
+    }
+
+    public class ProductImagesServices : IProductImagesServices
     {
         public List<ProductImage> GetByProductID(int productID)
         {

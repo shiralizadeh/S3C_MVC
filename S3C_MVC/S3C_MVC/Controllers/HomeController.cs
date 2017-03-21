@@ -12,19 +12,23 @@ namespace S3C_MVC.Controllers
 {
     public class HomeController : Controller
     {
-        //public HomeController(IProductsServices productsServices)
-        //{
-        //    this.productsServices = productsServices;
-        //}
+        public HomeController(IProductsServices productsServices,
+            IProductImagesServices productImagesServices)
+        {
+            this.productsServices = productsServices;
+            this.productImagesServices = productImagesServices;
+        }
 
-        //private IProductsServices productsServices;
-        private ProductsServices productsServices = new ProductsServices();
-        private ProductImagesServices productImagesServices = new ProductImagesServices();
+        private IProductsServices productsServices;
+        //private ProductsServices productsServices = new ProductsServices();
+        private IProductImagesServices productImagesServices;
+        //private ProductImagesServices productImagesServices = new ProductImagesServices();
 
         // GET: Home
         public ActionResult Index()
         {
             productsServices.SearchByTitle("فون");
+            productsServices.Count = 10;
 
             var list = productsServices.GetDTO();
 

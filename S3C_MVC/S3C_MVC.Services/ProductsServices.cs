@@ -12,6 +12,7 @@ namespace S3C_MVC.Services
 {
     public interface IProductsServices
     {
+        int Count { get; set; }
         List<Product> Get();
         List<Product> SearchByTitle(string title);
         List<Models.Public.ProductDTO> GetDTO();
@@ -23,11 +24,23 @@ namespace S3C_MVC.Services
 
     public class ProductsServices : IProductsServices
     {
+        public int Count { get; set; }
+
         public List<Product> Get()
         {
             using (var db = new EntityContext())
             {
                 var list = db.Products.ToList();
+
+                return list;
+            }
+        }
+
+        public List<Product> GetByTitle(string title)
+        {
+            using (var db = new EntityContext())
+            {
+                var list = db.Products.Where(item => item.Title.Contains(title)).ToList();
 
                 return list;
             }

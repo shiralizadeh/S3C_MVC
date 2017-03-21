@@ -4,7 +4,7 @@
     var productsServices = new S3C_MVC.Services.ProductsServices();
     var productImagesServices = new S3C_MVC.Services.ProductImagesServices();
 
-    var cartGuid = Request.Cookies["CartGuid"].Value;
+    var cartGuid = Request.Cookies["CartGuid"]?.Value ?? Guid.NewGuid().ToString();
 
     var cartItems = cartItemsServices.GetItemsByCartGuid(Guid.Parse(cartGuid));
 
@@ -24,7 +24,7 @@
 <div id="cart">
     <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..." class="heading dropdown-toggle">
         <span class="cart-icon pull-left flip"></span> <span id="cart-total">
-        <span class="cart-count">@cartItems.Count</span> آیتم - <span class="topay-price">@totalPrice تومان</span>
+            <span class="cart-count">@cartItems.Count</span> آیتم - <span class="topay-price">@totalPrice تومان</span>
         </span>
     </button>
     <ul class="dropdown-menu">
