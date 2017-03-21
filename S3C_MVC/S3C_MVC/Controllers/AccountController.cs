@@ -33,7 +33,7 @@ namespace S3C_MVC.Controllers
             if (usersServices.Auth(username, password))
             {
                 FormsAuthentication.SetAuthCookie(username, false);
-                var url = Request.QueryString["ReturnUrl"];
+                var url = Request.QueryString["ReturnUrl"] ?? "/";
 
                 return Redirect(url);
             }

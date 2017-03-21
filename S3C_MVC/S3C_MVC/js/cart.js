@@ -43,7 +43,8 @@
     });
 
     $('.cart-list').delegate('.btn-remove-cart', 'click', function (e) {
-        var $this = $(this);
+        var $this = $(this),
+            $tr = $this.closest('tr');
 
         var data = {
             ProductID: $this.data('productid')
@@ -52,11 +53,10 @@
         $.post('/Cart/RemoveFromCart', data).then(function (result) {
             if (result == 'True') { }
 
-            $this.closest('tr').fadeOut(800, function () {
-                $this.remove();
+            $tr.fadeOut(800, function () {
+                $tr.remove();
+                setPrices();
             });
-
-            setPrices();
         });
 
         e.preventDefault();
