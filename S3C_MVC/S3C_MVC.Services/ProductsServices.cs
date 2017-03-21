@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using S3C_MVC.Models.Admin;
 using System.Data.SqlClient;
+using S3C_MVC.DataLayerDapper;
 
 namespace S3C_MVC.Services
 {
@@ -62,18 +63,28 @@ namespace S3C_MVC.Services
             }
         }
 
+        //public List<Models.Public.ProductDTO> GetDTO()
+        //{
+        //    using (var db = new EntityContext())
+        //    {
+        //        var result = from item in db.Products
+        //                     select new Models.Public.ProductDTO()
+        //                     {
+        //                         ID = item.ID,
+        //                         Title = item.Title,
+        //                         Count = item.Count,
+        //                         Price = item.Price
+        //                     };
+
+        //        return result.ToList();
+        //    }
+        //}
+
         public List<Models.Public.ProductDTO> GetDTO()
         {
             using (var db = new EntityContext())
             {
-                var result = from item in db.Products
-                             select new Models.Public.ProductDTO()
-                             {
-                                 ID = item.ID,
-                                 Title = item.Title,
-                                 Count = item.Count,
-                                 Price = item.Price
-                             };
+                var result = Products.Get();
 
                 return result.ToList();
             }
