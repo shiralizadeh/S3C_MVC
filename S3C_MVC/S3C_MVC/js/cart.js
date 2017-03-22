@@ -1,4 +1,20 @@
-﻿$(function () {
+﻿$.get('/api/Products');
+$.get('/api/Products/4');
+$.post('/api/Products', {
+    groupID: 1,
+    title: 'عنوان تستی از Webapi',
+    count: 6,
+    description: 'خالی',
+    price: 1111
+});
+
+$.ajax({
+    url: '/api/Products/4',
+    type: 'delete',
+});
+
+
+$(function () {
     var $btnAddCart = $('.btn-add-cart');
 
     $btnAddCart.click(function () {

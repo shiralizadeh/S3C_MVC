@@ -21,6 +21,7 @@ namespace S3C_MVC.Services
         Models.Public.ProductDTO GetDTOByID(int id);
         void Insert(Product pro);
         void Update(int id, Models.Admin.ProductDTO productDTO);
+        void Delete(int id);
     }
 
     public class ProductsServices : IProductsServices
@@ -136,6 +137,19 @@ namespace S3C_MVC.Services
 
                 pro.Title = productDTO.Title;
                 pro.Count = productDTO.Count;
+
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (var db = new EntityContext())
+            {
+                //var pro = GetByID(id);
+                var pro = db.Products.Single(item => item.ID == id);
+
+                db.Products.Remove(pro);
 
                 db.SaveChanges();
             }

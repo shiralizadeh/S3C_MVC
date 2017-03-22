@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using S3C_MVC.App_Start;
 using S3C_MVC.DataLayer;
 using S3C_MVC.Models.Admin;
 using S3C_MVC.Services;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using static S3C_MVC.MvcApplication;
@@ -17,6 +19,8 @@ namespace S3C_MVC
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+            GlobalConfiguration.Configure(WebApiConfig.Config);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             Mapper.Initialize(config =>
